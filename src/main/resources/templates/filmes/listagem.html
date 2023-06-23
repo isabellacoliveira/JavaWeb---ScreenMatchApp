@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" 
-    xmlns:th="http://thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorate="~{template.html}">
+<html lang="en"
+      xmlns:th="http://thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{template.html}"
+>
 <head>
     <title>Lista de filmes</title>
 </head>
 <body>
+
 <div layout:fragment="conteudo">
     <h1>Lista de filmes</h1>
+
     <a href="/filmes/formulario">Novo</a>
+
     <table>
         <thead>
             <tr>
                 <th>NOME</th>
                 <th>DURAÇÃO</th>
-                <th>ANO DE LANÇAMENTO</th>
+                <th>ANO LANÇAMENTO</th>
                 <th>GÊNERO</th>
                 <th>AÇÕES</th>
             </tr>
@@ -27,14 +31,14 @@
                 <td th:text="${filme.anoLancamento}"></td>
                 <td th:text="${filme.genero}"></td>
                 <td>
-                    <!-- colocamos o id do filme que será passado na requisiçao -->
                     <a th:href="@{/filmes/formulario?id={id}(id=${filme.id})}">Editar</a>
+
                     <form action="/filmes" method="post">
                         <input type="hidden" name="_method" value="delete">
                         <input type="hidden" name="id" th:value="${filme.id}">
-                
+
                         <input type="submit" value="Excluir">
-                </form>
+                    </form>
                 </td>
             </tr>
         </tbody>
