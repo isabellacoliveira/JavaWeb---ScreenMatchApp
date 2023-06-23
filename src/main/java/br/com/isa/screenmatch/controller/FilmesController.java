@@ -1,8 +1,6 @@
 package br.com.isa.screenmatch.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,16 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.isa.screenmatch.domain.filme.DadosCadastroFilme;
 import br.com.isa.screenmatch.domain.filme.Filme;
+import br.com.isa.screenmatch.domain.filme.FilmeRepository;
 
 @Controller
 @RequestMapping("/filmes")
 public class FilmesController {
 
-    private List<Filme> filmes = new ArrayList();
+    // colocamos o autowired para que o proprio spring procure em nosso projeto essa repository e consiga gerenciar 
+    @Autowired
+    private FilmeRepository repository;
 
     @GetMapping
     public String carregaPaginaListgem(Model model){
-        model.addAttribute("lista", filmes);
+        model.addAttribute("lista", repository.findAll());
         return "filmes/listagem";
     }
 
@@ -32,7 +33,7 @@ public class FilmesController {
     @PostMapping
     public String cadastraFilme(DadosCadastroFilme dados){
         var filme = new Filme(dados);
-        filmes.add(filme);
+        repository.save(filme);
         return "redirect:/filmes";
     }
 }
