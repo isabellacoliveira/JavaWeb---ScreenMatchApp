@@ -10,8 +10,8 @@ que deseja.
 
 # Cadastro + Listagem de Filmes 
 
-[GIF](./assets/gif1.gif)
+![GIF](./assets/gif1.gif)
 
 # Edição + Exclusão de Filmes 
 
-[GIF](./assets/gif2.gif)
+![GIF](./assets/gif2.gif)
