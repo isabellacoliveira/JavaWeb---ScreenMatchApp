@@ -27,11 +27,10 @@
                 <td th:text="${filme.anoLancamento}"></td>
                 <td th:text="${filme.genero}"></td>
                 <td>
-                    <!-- o html só aceita get ou post, ele não aceita o delete no action -->
+                    <!-- colocamos o id do filme que será passado na requisiçao -->
+                    <a th:href="@{/filmes/formulario?id={id}(id=${filme.id})}">Editar</a>
                     <form action="/filmes" method="post">
-                        <!-- esse campo fica escondido na tela, ele serve para resolvermos o problema do post -->
                         <input type="hidden" name="_method" value="delete">
-                        <!-- assim ele levará o id do filme no momento em que clicarmos -->
                         <input type="hidden" name="id" th:value="${filme.id}">
                 
                         <input type="submit" value="Excluir">
