@@ -3,7 +3,6 @@
     xmlns:th="http://thymeleaf.org"
     xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     layout:decorate="~{template.html}">
-    <!-- usamos o tio pois queremos referenciar um arquivo -->
 <head>
     <title>Lista de filmes</title>
 </head>
@@ -18,17 +17,26 @@
                 <th>DURAÇÃO</th>
                 <th>ANO DE LANÇAMENTO</th>
                 <th>GÊNERO</th>
+                <th>AÇÕES</th>
             </tr>
         </thead>
         <tbody>
-            <!-- precisamos dizer de onde vem essa variavel lista -->
-            <!-- serve para fazer loop -->
-            <!-- expression language -->
             <tr th:each="filme : ${lista}">
                 <td th:text="${filme.nome}"></td>
                 <td th:text="${filme.duracaoEmMinutos}"></td>
                 <td th:text="${filme.anoLancamento}"></td>
                 <td th:text="${filme.genero}"></td>
+                <td>
+                    <!-- o html só aceita get ou post, ele não aceita o delete no action -->
+                    <form action="/filmes" method="post">
+                        <!-- esse campo fica escondido na tela, ele serve para resolvermos o problema do post -->
+                        <input type="hidden" name="_method" value="delete">
+                        <!-- assim ele levará o id do filme no momento em que clicarmos -->
+                        <input type="hidden" name="id" th:value="${filme.id}">
+                
+                        <input type="submit" value="Excluir">
+                </form>
+                </td>
             </tr>
         </tbody>
     </table>
