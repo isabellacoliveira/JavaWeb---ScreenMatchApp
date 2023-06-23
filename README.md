@@ -6,6 +6,7 @@ que deseja.
 ## Detalhes Técnicos 
 
 [X] Desenvolvimento do CRUD 
+
 [X] Desenvolvimento das Páginas HTML
 
 # Cadastro + Listagem de Filmes 
