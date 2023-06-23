@@ -56,4 +56,12 @@ public class Filme {
     public String getGenero() {
         return genero;
     }
+
+    public void atualizaDados(DadosEdicaoFilme dados) {
+        // precisamos verificar quais dos dados foram alterados
+        this.nome = dados.nome();
+        this.duracaoEmMinutos = dados.duracao();
+        this.anoLancamento = dados.ano();
+        this.genero = dados.genero();
+    }
 }

@@ -6,17 +6,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.isa.screenmatch.domain.filme.DadosCadastroFilme;
+import br.com.isa.screenmatch.domain.filme.DadosEdicaoFilme;
 import br.com.isa.screenmatch.domain.filme.Filme;
 import br.com.isa.screenmatch.domain.filme.FilmeRepository;
+import jakarta.transaction.Transactional;
 
 @Controller
 @RequestMapping("/filmes")
 public class FilmesController {
 
-    // colocamos o autowired para que o proprio spring procure em nosso projeto essa repository e consiga gerenciar 
     @Autowired
     private FilmeRepository repository;
 
@@ -28,7 +30,6 @@ public class FilmesController {
 
     @GetMapping("/formulario")
     public String carregaPaginaFormulario(Long id, Model model){
-        // esse parâmetro só será preenchido se o id nao for null
         if(id != null){
             var filme = repository.getReferenceById(id);
             model.addAttribute("filme", filme);
@@ -37,13 +38,24 @@ public class FilmesController {
     }
     
     @PostMapping
+    @Transactional
     public String cadastraFilme(DadosCadastroFilme dados){
         var filme = new Filme(dados);
         repository.save(filme);
         return "redirect:/filmes";
     }
 
+    @PutMapping
+    @Transactional
+    // iniciar uma transação no banco de dados 
+    public String atualizaFilme(DadosEdicaoFilme dados){
+        var filme = repository.getReferenceById(dados.id());
+        filme.atualizaDados(dados);
+        return "redirect:/filmes";
+    }
+
     @DeleteMapping
+    @Transactional
     public String removeFilme(Long id) {
             repository.deleteById(id);
             return "redirect:/filmes";
